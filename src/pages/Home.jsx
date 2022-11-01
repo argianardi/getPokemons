@@ -35,6 +35,14 @@ function Home() {
       });
   }, [currentPageUrl]);
 
+  const gotoNextPage = () => {
+    setCurrentPageUrl(nextPageUrl);
+  };
+
+  const gotoPrevPage = () => {
+    setCurrentPageUrl(prevPageUrl);
+  };
+
   return (
     <>
       {loading ? (
@@ -54,19 +62,28 @@ function Home() {
                 />
               ))}
             </div>
+
             <div className="flex justify-between p-2 ">
-              <button>
-                <BsFillArrowLeftCircleFill
-                  size={45}
-                  className="text-getblue hover:text-getorange"
-                />
-              </button>
-              <button>
-                <BsFillArrowRightCircleFill
-                  size={45}
-                  className="text-getblue hover:text-getorange"
-                />
-              </button>
+              <div>
+                {prevPageUrl && (
+                  <button onClick={gotoPrevPage}>
+                    <BsFillArrowLeftCircleFill
+                      size={45}
+                      className="text-getblue hover:text-getorange"
+                    />
+                  </button>
+                )}
+              </div>
+              <div className="text-end">
+                {nextPageUrl && (
+                  <button onClick={nextPageUrl ? gotoNextPage : null}>
+                    <BsFillArrowRightCircleFill
+                      size={45}
+                      className="text-getblue hover:text-getorange"
+                    />
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
