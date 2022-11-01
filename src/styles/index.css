@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bb {
+  border: solid blue;
+}
+
+.br {
+  border: solid red;
+}
+
+.bh {
+  border: solid black;
+}
