@@ -24,16 +24,36 @@ function Home() {
     axios
       .get(currentPageUrl)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setLoading(false);
         setNextPageUrl(response.data.next);
         setPrevPageUrl(response.data.previous);
-        setPokemons(response.data.results);
+        getPokemons(response.data.results);
+        // console.log(pokemons);
       })
       .catch((error) => {
         console.log(error.toString());
       });
   }, [currentPageUrl]);
+
+  const getPokemons = (response) => {
+    response.map((item) => {
+      axios
+        .get(item.url)
+        .then((results) => {
+          // console.log(results);
+          setPokemons((state) => {
+            state = [...state, results.data];
+            return state;
+          });
+        })
+        .catch((error) => {
+          console.log(error.toString());
+        });
+    });
+  };
+
+  console.log(pokemons);
 
   const gotoNextPage = () => {
     setCurrentPageUrl(nextPageUrl);
@@ -56,15 +76,15 @@ function Home() {
             <div className="flex flex-wrap justify-center gap-5 px-5 py-5 mt-4 sm:gap-10 ">
               {pokemons.map((pokemon) => (
                 <Card
-                  key={pokemon.name}
+                  key={pokemon.id}
                   pokemonName={pokemon.name}
-                  url={pokemon.url}
+                  pokemonImg={pokemon.sprites.front_default}
                 />
               ))}
             </div>
 
             <div className="flex justify-between p-2 ">
-              <div>
+              <div className="ml-16 sm:ml-32">
                 {prevPageUrl && (
                   <button onClick={gotoPrevPage}>
                     <BsFillArrowLeftCircleFill
@@ -74,7 +94,7 @@ function Home() {
                   </button>
                 )}
               </div>
-              <div className="text-end">
+              <div className="mr-16 sm:mr-32">
                 {nextPageUrl && (
                   <button onClick={nextPageUrl ? gotoNextPage : null}>
                     <BsFillArrowRightCircleFill
