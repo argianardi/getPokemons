@@ -27,12 +27,10 @@ function Home() {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       })
       .then((response) => {
-        // console.log(response.data);
         setLoading(false);
         setNextPageUrl(response.data.next);
         setPrevPageUrl(response.data.previous);
         getPokemons(response.data.results);
-        // console.log(pokemons);
       })
       .catch((error) => {
         console.log(error.toString());
@@ -45,7 +43,6 @@ function Home() {
       axios
         .get(item.url)
         .then((results) => {
-          // console.log(results);
           setPokemons((state) => {
             state = [...state, results.data];
             return state;
@@ -56,8 +53,6 @@ function Home() {
         });
     });
   };
-
-  // console.log(pokemons);
 
   const gotoNextPage = () => {
     setPokemons([]);
@@ -85,6 +80,7 @@ function Home() {
                   pokemons={pokemons}
                   key={pokemon.id}
                   pokemonName={pokemon.name}
+                  pokemonId={pokemon.id}
                   pokemonImg={
                     pokemon.sprites.front_default
                       ? pokemon.sprites.front_default
