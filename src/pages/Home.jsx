@@ -1,7 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import logo from "../img/PokeBall.ico";
-import { Link } from "react-router-dom";
 
 import { MdSearch } from "react-icons/md";
 import { IoSunny, IoMoon } from "react-icons/io5";
@@ -75,25 +73,25 @@ function Home() {
   return (
     <>
       {loading ? (
-        <div className="h-screen min-w-full bh">
+        <div className="h-screen min-w-full">
           <p className="mt-[300px] text-5xl text-center">Loading.....</p>
         </div>
       ) : (
         <>
-          <Header />
           <div className="overflow-x-hidden">
-            <div className="w-[85%] sm:w-[80%] lg:w-[800px] px-1 sm:px-4 lg:px-0 lg:-ml-2">
-              <div className="w-full bg-getwhite border sborder-[#D9D9D9] h-[45px] md:h-[50px]  flex justify-between rounded-3xl">
+            <Header />
+            <div className="w-[300px] md:w-[400px] m-auto  mt-28">
+              <div className="w-full bg-getblue border sborder-[#D9D9D9] h-[45px] md:h-[50px]  flex justify-between rounded-br-full rounded-tl-full pl-2">
                 <input
                   type="text"
-                  placeholder="Find the Pokemon..."
+                  placeholder="Find the Pokemons..."
                   onChange={(e) => setText(e.target.value)}
-                  className="w-full px-0 mx-2 text-sm italic outline-none sm:mx-3 bg-limeEboox text-getblue sm:px-2 rounded-3xl bg-getwhite "
+                  className="w-full px-2 mx-5 text-sm italic outline-none sm:mx-3 bg-limeEboox text-getwhite rounded-3xl bg-getblue "
                 />
-                <div className="bg-[#D9D9D9] w-14 h-full flex rounded-tr-3xl rounded-br-3xl">
+                <div className="flex w-20 h-full rounded-br-full bg-getorange">
                   <MdSearch
                     size={30}
-                    color={"#000000"}
+                    color={"#ffffff"}
                     className="self-center mx-auto"
                   />
                 </div>
