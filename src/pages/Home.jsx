@@ -21,25 +21,46 @@ function Home() {
 
   useEffect(() => {
     setLoading(true);
+    let cancel;
     axios
-      .get(currentPageUrl)
+      .get(currentPageUrl, {
+        cancelToken: new axios.CancelToken((c) => (cancel = c)),
+      })
       .then((response) => {
-        console.log(response.data);
         setLoading(false);
         setNextPageUrl(response.data.next);
         setPrevPageUrl(response.data.previous);
-        setPokemons(response.data.results);
+        getPokemons(response.data.results);
       })
       .catch((error) => {
         console.log(error.toString());
       });
+    return () => cancel();
   }, [currentPageUrl]);
 
+  const getPokemons = (response) => {
+    response.map((item) => {
+      axios
+        .get(item.url)
+        .then((results) => {
+          setPokemons((state) => {
+            state = [...state, results.data];
+            return state;
+          });
+        })
+        .catch((error) => {
+          console.log(error.toString());
+        });
+    });
+  };
+
   const gotoNextPage = () => {
+    setPokemons([]);
     setCurrentPageUrl(nextPageUrl);
   };
 
   const gotoPrevPage = () => {
+    setPokemons([]);
     setCurrentPageUrl(prevPageUrl);
   };
 
@@ -56,17 +77,25 @@ function Home() {
             <div className="flex flex-wrap justify-center gap-5 px-5 py-5 mt-4 sm:gap-10 ">
               {pokemons.map((pokemon) => (
                 <Card
-                  key={pokemon.name}
+                  pokemons={pokemons}
+                  key={pokemon.id}
                   pokemonName={pokemon.name}
-                  url={pokemon.url}
+                  pokemonId={pokemon.id}
+                  pokemonImg={
+                    pokemon.sprites.front_default
+                      ? pokemon.sprites.front_default
+                      : pokemon.sprites.front_shiny
+                      ? pokemon.sprites.front_shiny
+                      : "https://via.placeholder.com/650x750?text=No+Image"
+                  }
                 />
               ))}
             </div>
 
             <div className="flex justify-between p-2 ">
-              <div>
+              <div className="ml-16 sm:ml-32">
                 {prevPageUrl && (
-                  <button onClick={gotoPrevPage}>
+                  <button onClick={prevPageUrl ? gotoPrevPage : null}>
                     <BsFillArrowLeftCircleFill
                       size={45}
                       className="text-getblue hover:text-getorange"
@@ -74,7 +103,7 @@ function Home() {
                   </button>
                 )}
               </div>
-              <div className="text-end">
+              <div className="mr-16 sm:mr-32">
                 {nextPageUrl && (
                   <button onClick={nextPageUrl ? gotoNextPage : null}>
                     <BsFillArrowRightCircleFill
