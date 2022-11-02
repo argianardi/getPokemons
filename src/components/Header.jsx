@@ -7,9 +7,9 @@ import { IoSunny, IoMoon } from "react-icons/io5";
 
 export const Header = () => {
   return (
-    <div className="bg-getblue h-[75px] w-full ">
-      <header className="container sticky top-0 z-30 flex w-full h-full mx-auto">
-        <nav className="flex items-center self-center justify-between w-[300px] md:w-[400px] xl:w-[500px] bh h-full mx-auto">
+    <div className="bg-getblue h-[75px] w-full fixed top-0 z-30 ">
+      <header className="container flex w-full h-full mx-auto">
+        <nav className="flex items-center self-center justify-between w-[300px] md:w-[400px] xl:w-[500px] h-full mx-auto">
           {/*  logo*/}
           <Link to="/" className="flex items-center ">
             <img src={logo} alt="logo-pokemon" className="w-[50px]" />
