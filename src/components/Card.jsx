@@ -9,7 +9,7 @@ export const Card = ({ pokemonName, pokemonImg, pokemonId }) => {
           <img
             src={pokemonImg}
             alt={pokemonName}
-            className="h-[200px] mx-auto mt-2"
+            className="h-[200px] mx-auto mt-2 hover:scale-150 transition duration-100"
           />
           <p className="py-2 mt-5 font-bold text-center capitalize cursor-pointer rounded-b-lglg bg-getblue text-getwhite hover:bg-getorange">
             {pokemonName}

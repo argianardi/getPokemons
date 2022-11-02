@@ -38,9 +38,9 @@ export const DetailPokemon = () => {
           <p className="mt-[300px] text-5xl text-center">Loading.....</p>
         </div>
       ) : (
-        <div className="w-[90%] sm:w-[80%] md:w-[550px] mx-auto  my-7">
-          <div className="flex justify-between">
-            <section className="flex p-2 w-[60%] ">
+        <div className="w-[90%] sm:w-[80%] md:w-[550px] mx-auto  mt-28 mb-10">
+          <div className="flex flex-col justify-between sm:flex-row">
+            <section className="flex  m-2 w-full sm:w-[55%] border-2 rounded-md border-getblue cursor-pointer">
               <img
                 src={
                   `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-wold/${id}.svg`
@@ -48,10 +48,10 @@ export const DetailPokemon = () => {
                     : "https://via.placeholder.com/650x750?text=No+Image"
                 }
                 alt={pokemon.name}
-                className="mx-auto border-2 rounded-md border-getblue"
+                className="mx-auto transition duration-100 hover:scale-125"
               />
             </section>
-            <section className="m-2 border-2 rounded-md border-getblue w-[40%] capitalize text-getblue">
+            <section className="m-2 border-2 rounded-md border-getblue w-full sm:w-[45%] capitalize text-getblue">
               {stats.map((item, index) => (
                 <div key={index} className="w-full p-1">
                   <p className="font-bold">{item.stat.name}</p>
@@ -76,7 +76,7 @@ export const DetailPokemon = () => {
               <p className="ml-2">Weight: {pokemon.weight}</p>
               <p className="ml-2">Height: {pokemon.height}</p>
             </section>
-            <section className="self-center px-10 py-2 text-3xl font-bold text-white rounded-tr-full rounded-bl-full bg-getorange font-poppins">
+            <section className="self-center px-3 py-2 text-xl font-bold text-white rounded-tr-full rounded-bl-full sm:text-3xl sm:px-10 bg-getorange font-poppins">
               <ul className="ml-3 list-disc list-outside">
                 {abilities.map((item) => {
                   return (
